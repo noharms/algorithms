@@ -17,7 +17,7 @@ public class MergeSorter<T extends Comparable<T>> implements Sorter<T> {
         if (nElements < 2) {
             return;
         }
-        int nLeft = nElements / 2; // note: if nElements even, mid will round down to the lesser side
+        int nLeft = nElements / 2;
         mergeSort(array, startIncl, startIncl + nLeft);
         mergeSort(array, startIncl + nLeft, endExcl);
         mergeSortedHalves(array, startIncl, endExcl, nLeft);
