@@ -45,4 +45,10 @@ class BinarySearchTest {
         assertEquals(Arrays.binarySearch(arr, someValue), BinarySearch.find(arr, someValue));
     }
 
+    @Test
+    void strings_work() {
+        assertEquals(0, BinarySearch.find(new String[]{"42", "43", "45"}, "42"));
+        assertEquals(1, BinarySearch.find(new String[]{"41", "42", "44"}, "42"));
+        assertEquals(2, BinarySearch.find(new String[]{"40", "41", "42"}, "42"));
+    }
 }
