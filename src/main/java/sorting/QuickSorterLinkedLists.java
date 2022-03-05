@@ -8,22 +8,22 @@ import java.util.LinkedList;
  * A rather academic sorter that does not sort an array but a stack - this means partitioning cannot be done in-place
  * on the input array but instead two auxiliary stacks are created in each level of recursion.
  */
-public class QuickSorterStackBased {
+public class QuickSorterLinkedLists {
 
-    public static <T extends Comparable<T>> void quickSort(LinkedList<T> stack) {
-        if (stack.size() <= 1) {
+    public static <T extends Comparable<T>> void quickSort(LinkedList<T> linkedList) {
+        if (linkedList.size() <= 1) {
             return;
         }
         // partition on two auxiliary stacks
-        T pivot = stack.pop();
+        T pivot = linkedList.removeFirst();
         LinkedList<T> lesser = new LinkedList<>();
         LinkedList<T> greaterEqual = new LinkedList<>();
-        while (!stack.isEmpty()) {
-            T value = stack.pop();
+        while (!linkedList.isEmpty()) {
+            T value = linkedList.removeFirst();
             if (value.compareTo(pivot) < 0) {
-                lesser.push(value);
+                lesser.addFirst(value);
             } else {
-                greaterEqual.push(value);
+                greaterEqual.addFirst(value);
             }
         }
 
@@ -35,11 +35,11 @@ public class QuickSorterStackBased {
         // Caveat: since the greatest element is at the end of greaterEqual, we need to work at its end, which a stack does not normally allow
         // TODO: removeLast is not a normal Stack API
         while(!greaterEqual.isEmpty()) {
-            stack.push(greaterEqual.removeLast());
+            linkedList.addFirst(greaterEqual.removeLast());
         }
-        stack.push(pivot);
+        linkedList.addFirst(pivot);
         while (!lesser.isEmpty()) {
-            stack.push(lesser.removeLast());
+            linkedList.addFirst(lesser.removeLast());
         }
     }
 
