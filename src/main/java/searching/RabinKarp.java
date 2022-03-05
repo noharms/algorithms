@@ -16,10 +16,14 @@ public class RabinKarp {
         int weight = 1;
         for (int i = 0; i < charSequence.length(); ++i) {
             char character = charSequence.charAt(charSequence.length() - 1 - i);
-            if (Integer.MAX_VALUE - (int) pow(weight, i) < character) {
+            if ((character * weight) / weight != character) { // overflow detection
                 throw new IllegalArgumentException("Charsequence is too long, overflow encountered");
             }
             hash = (hash % MAX_HASH + (character * weight) % MAX_HASH) % MAX_HASH; // (a + b) % c = (a % c + b % c) % c
+
+            if ((int) pow(FACTOR, i) / FACTOR  != (int) pow(FACTOR, i - 1)) { // overflow detection
+                throw new IllegalArgumentException("Charsequence is too long, overflow encountered");
+            }
             weight = weight * FACTOR;
         }
         return hash;
