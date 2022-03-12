@@ -6,14 +6,14 @@ public class Permutations {
 
     public static <T> Set<List<T>> permutations(List<T> tuple) {
         Set<List<T>> result = new HashSet<>();
-        computeRecursive(new HashSet<>(tuple), new LinkedList<>(), result, tuple.size());
+        computeRecursive(new HashSet<>(tuple), tuple.size(), new LinkedList<>(), result);
         return result;
     }
 
     private static <T> void computeRecursive(Set<T> elements,
+                                             int finalLength,
                                              LinkedList<T> currentSequence,
-                                             Set<List<T>> allPermutations,
-                                             int finalLength) {
+                                             Set<List<T>> allPermutations) {
         if (currentSequence.size() == finalLength) {
             allPermutations.add(new ArrayList<>(currentSequence));
             return;
@@ -22,7 +22,7 @@ public class Permutations {
             Set<T> remainingElements = new HashSet<>(elements);
             remainingElements.remove(element);
             currentSequence.addLast(element);
-            computeRecursive(remainingElements, currentSequence, allPermutations, finalLength);
+            computeRecursive(remainingElements, finalLength, currentSequence, allPermutations);
             currentSequence.removeLast();
         }
     }
