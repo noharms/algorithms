@@ -1,5 +1,8 @@
 package combinatorics;
 
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
+
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -82,6 +85,30 @@ public class UrnModel {
             currentDraw.addLast(element);
             withRepetitionWithOrder(set, maxDraws, currentDraw, completedDraws);
             currentDraw.removeLast();
+        }
+    }
+
+    public static <T> Set<Multiset<T>> drawWithRepetitionWithoutOrder(Set<T> set, int nDraws) {
+        if (nDraws > set.size() || nDraws == 0) {
+            return emptySet();
+        }
+        Set<Multiset<T>> result = new HashSet<>();
+        withRepetitionWithoutOrder(set, nDraws, HashMultiset.create(), result);
+        return result;
+    }
+
+    private static <T> void withRepetitionWithoutOrder(Set<T> set,
+                                                       int maxDraws,
+                                                       HashMultiset<T> currentDraw,
+                                                       Set<Multiset<T>> completedDraws) {
+        if (currentDraw.size() == maxDraws) {
+            completedDraws.add(HashMultiset.create(currentDraw));
+            return;
+        }
+        for (T element : set) {
+            currentDraw.add(element);
+            withRepetitionWithoutOrder(set, maxDraws, currentDraw, completedDraws);
+            currentDraw.remove(element);
         }
     }
 }
