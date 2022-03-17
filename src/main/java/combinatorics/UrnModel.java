@@ -9,12 +9,12 @@ import static java.util.Collections.emptySet;
 
 public class UrnModel {
 
-    public static <T> Set<List<T>> drawWithoutRepetitionWithOrder(Set<T> set, int k) {
-        if (k > set.size() || k == 0) {
+    public static <T> Set<List<T>> drawWithoutRepetitionWithOrder(Set<T> set, int nDraws) {
+        if (nDraws > set.size() || nDraws == 0) {
             return emptySet();
         }
         Set<List<T>> result = new HashSet<>();
-        withoutRepetitionWithOrder(set, k, new LinkedList<>(), result);
+        withoutRepetitionWithOrder(set, nDraws, new LinkedList<>(), result);
         return result;
     }
 
@@ -35,12 +35,12 @@ public class UrnModel {
         }
     }
 
-    public static <T> Set<Set<T>> drawWithoutRepetitionWithoutOrder(Set<T> set, int k) {
-        if (k > set.size() || k == 0) {
+    public static <T> Set<Set<T>> drawWithoutRepetitionWithoutOrder(Set<T> set, int nDraws) {
+        if (nDraws > set.size() || nDraws == 0) {
             return emptySet();
         }
         Set<Set<T>> result = new HashSet<>();
-        withoutRepetitionWithoutOrder(set, k, new HashSet<>(), result);
+        withoutRepetitionWithoutOrder(set, nDraws, new HashSet<>(), result);
         return result;
     }
 
@@ -58,6 +58,30 @@ public class UrnModel {
             reducedSet.remove(element);
             withoutRepetitionWithoutOrder(reducedSet, maxDraws, currentDraw, completedDraws);
             currentDraw.remove(element);
+        }
+    }
+
+    public static <T> Set<List<T>> drawWithRepetitionWithOrder(Set<T> set, int nDraws) {
+        if (nDraws > set.size() || nDraws == 0) {
+            return emptySet();
+        }
+        Set<List<T>> result = new HashSet<>();
+        withRepetitionWithOrder(set, nDraws, new LinkedList<>(), result);
+        return result;
+    }
+
+    private static <T> void withRepetitionWithOrder(Set<T> set,
+                                                    int maxDraws,
+                                                    LinkedList<T> currentDraw,
+                                                    Set<List<T>> completedDraws) {
+        if (currentDraw.size() == maxDraws) {
+            completedDraws.add(new LinkedList<>(currentDraw));
+            return;
+        }
+        for (T element : set) {
+            currentDraw.addLast(element);
+            withRepetitionWithOrder(set, maxDraws, currentDraw, completedDraws);
+            currentDraw.removeLast();
         }
     }
 }
