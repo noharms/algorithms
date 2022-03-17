@@ -9,50 +9,50 @@ import static com.google.common.math.LongMath.factorial;
 import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class UrnModelTest {
+class UrnModelWithoutRepetitionWithOrderTest {
 
     @Test
-    void withoutRepetition_withOrder_empty_set() {
+    void empty_set() {
         assertEquals(emptySet(), UrnModel.drawWithoutRepetitionWithOrder(emptySet(), 42));
     }
 
     @Test
-    void withoutRepetition_withOrder_k_greater_size() {
+    void k_greater_size() {
         assertEquals(emptySet(), UrnModel.drawWithoutRepetitionWithOrder(Set.of(1, 2, 3), 4));
     }
 
     @Test
-    void withoutRepetition_withOrder_one_element_set_zero_draws() {
+    void one_element_set_zero_draws() {
         assertEquals(emptySet(), UrnModel.drawWithoutRepetitionWithOrder(Set.of(1), 0));
     }
 
     @Test
-    void withoutRepetition_withOrder_one_element_set_one_draw() {
+    void one_element_set_one_draw() {
         assertEquals(Set.of(List.of(1)), UrnModel.drawWithoutRepetitionWithOrder(Set.of(1), 1));
     }
 
     @Test
-    void withoutRepetition_withOrder_two_element_set_zero_draws() {
+    void two_element_set_zero_draws() {
         assertEquals(emptySet(), UrnModel.drawWithoutRepetitionWithOrder(Set.of(1, 2), 0));
     }
 
     @Test
-    void withoutRepetition_withOrder_two_element_set_one_draws() {
+    void two_element_set_one_draws() {
         assertEquals(Set.of(List.of(1), List.of(2)), UrnModel.drawWithoutRepetitionWithOrder(Set.of(1, 2), 1));
     }
 
     @Test
-    void withoutRepetition_withOrder_two_element_set_two_draws() {
+    void two_element_set_two_draws() {
         assertEquals(Set.of(List.of(1, 2), List.of(2, 1)), UrnModel.drawWithoutRepetitionWithOrder(Set.of(1, 2), 2));
     }
 
     @Test
-    void withoutRepetition_withOrder_three_element_set_zero_draws() {
+    void three_element_set_zero_draws() {
         assertEquals(emptySet(), UrnModel.drawWithoutRepetitionWithOrder(Set.of(1, 2, 3), 0));
     }
 
     @Test
-    void withoutRepetition_withOrder_three_element_set_one_draws() {
+    void three_element_set_one_draws() {
         assertEquals(
                 Set.of(
                         List.of(1),
@@ -64,7 +64,7 @@ class UrnModelTest {
     }
 
     @Test
-    void withoutRepetition_withOrder_three_element_set_two_draws() {
+    void three_element_set_two_draws() {
         assertEquals(
                 Set.of(
                         List.of(1, 2),
@@ -79,7 +79,7 @@ class UrnModelTest {
     }
 
     @Test
-    void withoutRepetition_withOrder_three_element_set_three_draws() {
+    void three_element_set_three_draws() {
         assertEquals(
                 Set.of(
                         List.of(1, 2, 3),
