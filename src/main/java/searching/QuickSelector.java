@@ -21,23 +21,33 @@ public class QuickSelector {
             String msg = "Choose 0 <= k < array length (%s was chosen but length is %s).".formatted(k, array.length);
             throw new IllegalArgumentException(msg);
         }
-        T[] copy = Arrays.copyOf(array, array.length);
-        int indexKthSmallest = quickSelect(copy, k, 0, array.length); // note: elements are shuffled now in copy
-        return copy[indexKthSmallest];
+        T[] copy = Arrays.copyOf(array, array.length); // O(n) space for copying, so the copy can be reordered
+        return findKthSmallest(copy, k);
     }
 
-    private static <T extends Comparable<T>> int quickSelect(T[] array, int k, int startIncl, int endExcl) {
-        int offsetPivot = partitionAroundPivot(array, startIncl, endExcl);
-        if (offsetPivot == k) {
-            return offsetPivot;
-        } else if (offsetPivot > k) {
-            return quickSelect(array, k, startIncl, startIncl + offsetPivot);
-        } else { // offsetPivot < k
-            return offsetPivot + 1 + quickSelect(array, k - offsetPivot - 1, startIncl + offsetPivot + 1, endExcl);
+    /**
+     * Caveat: this reorders the input array ! the kth smallest element will be at index k after this method completes
+     */
+    private static <T extends Comparable<T>> T findKthSmallest(T[] array, int k) {
+        int startIncl = 0;
+        int endExcl = array.length;
+
+        int indexPivot = partitionAroundPivot(array, startIncl, endExcl);
+        int offsetPivot = indexPivot - startIncl;
+        while (offsetPivot != k) {
+            if (offsetPivot > k) {
+                endExcl = indexPivot;
+            } else { // indexPivot < startIncl + k
+                k = k - offsetPivot - 1;
+                startIncl = indexPivot + 1;
+            }
+            indexPivot = partitionAroundPivot(array, startIncl, endExcl);
+            offsetPivot = indexPivot - startIncl;
         }
+        return array[indexPivot];
     }
 
-    /* returns the offset of the pivot after the partitioning, e.g. if pivot is first element, returns 0 */
+    /* returns the index of the pivot after the partitioning, e.g. startIncl + offset of the pivot */
     private static <T extends Comparable<T>> int partitionAroundPivot(T[] array, int startIncl, int endExcl) {
         // if array has even length, this is at start of left half: e.g. [1, 2, 3, 4] --> 0 + 3 / 2 = 1.5 -> 1
         int mid = startIncl + (endExcl - startIncl - 1) / 2;
@@ -52,14 +62,14 @@ public class QuickSelector {
             if (compareResult == 0) {
                 ++nEqual;
             } else if (compareResult < 0) {
-                swap(array, startIncl + nLess, current);
+                swap(array, current, startIncl + nLess);
                 ++nLess;
             } else {
                 swap(array, current, endExcl - 1 - nGreater);
                 ++nGreater;
             }
         }
-        return nLess + nEqual - 1;
+        return startIncl + nLess + nEqual - 1;
     }
 
 }
