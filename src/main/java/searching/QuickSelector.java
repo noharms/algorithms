@@ -2,7 +2,7 @@ package searching;
 
 import java.util.Arrays;
 
-import static utils.ArrayUtils.swap;
+import static arrayutils.ArrayUtils.swap;
 
 /**
  * Finds the kth smallest element in O(n) time by using the quick-select strategy. Note that we use O(n) space to make

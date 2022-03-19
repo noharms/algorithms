@@ -1,6 +1,6 @@
 package sorting;
 
-import utils.ArrayUtils;
+import arrayutils.ArrayUtils;
 
 public class BubbleSorter<T extends Comparable<T>> implements Sorter<T> {
 

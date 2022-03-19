@@ -1,6 +1,6 @@
 package sorting;
 
-import utils.ArrayUtils;
+import arrayutils.ArrayUtils;
 
 public class SelectionSorter<T extends Comparable<T>> implements Sorter<T> {
 

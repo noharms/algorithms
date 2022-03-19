@@ -1,6 +1,6 @@
 package sorting;
 
-import static utils.ArrayUtils.swap;
+import static arrayutils.ArrayUtils.swap;
 
 public class InsertionSorter<T extends Comparable<T>> implements Sorter<T> {
 
