@@ -1,6 +1,6 @@
 package sorting;
 
-import static sorting.ArrayUtils.swap;
+import static utils.ArrayUtils.swap;
 
 public class QuickSorter<T extends Comparable<T>> implements Sorter<T> {
 
