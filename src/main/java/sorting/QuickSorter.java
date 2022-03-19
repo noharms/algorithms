@@ -1,6 +1,6 @@
 package sorting;
 
-import static arrayutils.ArrayUtils.swap;
+import static arrayutils.ArrayUtils.biPartitionAroundPivot;
 
 public class QuickSorter<T extends Comparable<T>> implements Sorter<T> {
 
@@ -13,30 +13,9 @@ public class QuickSorter<T extends Comparable<T>> implements Sorter<T> {
         if (endExcl - startIncl < 2) {
             return;
         }
-        int pivotIndex = partitionAroundPivot(array, startIncl, endExcl);
+        int pivotIndex = biPartitionAroundPivot(array, startIncl, endExcl);
         quickSort(array, startIncl, pivotIndex);
         quickSort(array, pivotIndex + 1, endExcl);
-    }
-
-    private static <U extends Comparable<U>> int partitionAroundPivot(U[] array, int startIncl, int endExcl) {
-        U pivotElement = array[startIncl];
-        int nGreater = 0;
-        int nLesserEqual = 1;
-        int nElements = endExcl - startIncl;
-
-        while (nGreater + nLesserEqual < nElements) {
-            U currentElement = array[startIncl + nLesserEqual];
-            if (currentElement.compareTo(pivotElement) > 0) {
-                swap(array, startIncl + nLesserEqual, endExcl - 1 - nGreater);
-                ++nGreater;
-            } else {
-                ++nLesserEqual;
-            }
-        }
-
-        int pivotIndex = startIncl + nLesserEqual - 1;
-        swap(array, startIncl, pivotIndex);
-        return pivotIndex;
     }
 
 }

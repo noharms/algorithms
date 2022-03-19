@@ -2,7 +2,7 @@ package searching;
 
 import java.util.Arrays;
 
-import static arrayutils.ArrayUtils.swap;
+import static arrayutils.ArrayUtils.triPartitionAroundPivot;
 
 /**
  * Finds the kth smallest element in O(n) time by using the quick-select strategy. Note that we use O(n) space to make
@@ -32,7 +32,7 @@ public class QuickSelector {
         int startIncl = 0;
         int endExcl = array.length;
 
-        int indexPivot = partitionAroundPivot(array, startIncl, endExcl);
+        int indexPivot = triPartitionAroundPivot(array, startIncl, endExcl);
         int offsetPivot = indexPivot - startIncl;
         while (offsetPivot != k) {
             if (offsetPivot > k) {
@@ -41,35 +41,10 @@ public class QuickSelector {
                 k = k - offsetPivot - 1;
                 startIncl = indexPivot + 1;
             }
-            indexPivot = partitionAroundPivot(array, startIncl, endExcl);
+            indexPivot = triPartitionAroundPivot(array, startIncl, endExcl);
             offsetPivot = indexPivot - startIncl;
         }
         return array[indexPivot];
-    }
-
-    /* returns the index of the pivot after the partitioning, e.g. startIncl + offset of the pivot */
-    private static <T extends Comparable<T>> int partitionAroundPivot(T[] array, int startIncl, int endExcl) {
-        // if array has even length, this is at start of left half: e.g. [1, 2, 3, 4] --> 0 + 3 / 2 = 1.5 -> 1
-        int mid = startIncl + (endExcl - startIncl - 1) / 2;
-        T pivotElement = array[mid];
-        swap(array, mid, startIncl);
-        int nLess = 0;
-        int nEqual = 1;
-        int nGreater = 0;
-        while (nLess + nEqual + nGreater < (endExcl - startIncl)) {
-            int current = startIncl + nLess + nEqual;
-            int compareResult = array[current].compareTo(pivotElement);
-            if (compareResult == 0) {
-                ++nEqual;
-            } else if (compareResult < 0) {
-                swap(array, current, startIncl + nLess);
-                ++nLess;
-            } else {
-                swap(array, current, endExcl - 1 - nGreater);
-                ++nGreater;
-            }
-        }
-        return startIncl + nLess + nEqual - 1;
     }
 
 }
