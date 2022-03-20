@@ -8,41 +8,41 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PartitionsTest {
+class AllPartitionsTest {
 
     @Test
     void bellNumber_1_is_1() {
-        assertEquals(1, Partitions.bellNumber(1));
+        assertEquals(1, AllPartitions.bellNumber(1));
     }
 
     @Test
     void bellNumber_2_is_2() {
-        assertEquals(2, Partitions.bellNumber(2));
+        assertEquals(2, AllPartitions.bellNumber(2));
     }
 
     @Test
     void bellNumber_3_is_5() {
-        assertEquals(5, Partitions.bellNumber(3));
+        assertEquals(5, AllPartitions.bellNumber(3));
     }
 
     @Test
     void bellNumber_4_is_15() {
-        assertEquals(15, Partitions.bellNumber(4));
+        assertEquals(15, AllPartitions.bellNumber(4));
     }
 
     @Test
     void bellNumber_5_is_52() {
-        assertEquals(52, Partitions.bellNumber(5));
+        assertEquals(52, AllPartitions.bellNumber(5));
     }
 
     @Test
     void bellNumber_6_is_203() {
-        assertEquals(203, Partitions.bellNumber(6));
+        assertEquals(203, AllPartitions.bellNumber(6));
     }
 
     @Test
     void allPartitions_one_element_set() {
-        assertEquals(Set.of(Set.of(Set.of(1))), Partitions.allPartitions(Set.of(1)));
+        assertEquals(Set.of(Set.of(Set.of(1))), AllPartitions.from(Set.of(1)));
     }
 
     @Test
@@ -57,7 +57,7 @@ class PartitionsTest {
                     Set.of(1, 2)
                 )
             ),
-            Partitions.allPartitions(Set.of(1, 2)));
+            AllPartitions.from(Set.of(1, 2)));
     }
 
     @Test
@@ -85,7 +85,7 @@ class PartitionsTest {
                     Set.of(1, 2, 3)
                 )
             ),
-            Partitions.allPartitions(Set.of(1, 2, 3)));
+            AllPartitions.from(Set.of(1, 2, 3)));
     }
 
     @Test
@@ -159,14 +159,14 @@ class PartitionsTest {
                 Set.of(1, 2, 3, 4)
             )
         );
-        Set<Set<Set<Integer>>> actual = Partitions.allPartitions(Set.of(1, 2, 3, 4));
+        Set<Set<Set<Integer>>> actual = AllPartitions.from(Set.of(1, 2, 3, 4));
         assertEquals(expected, actual);
-        assertEquals(Partitions.bellNumber(4), actual.size());
+        assertEquals(AllPartitions.bellNumber(4), actual.size());
     }
 
     @Test
     void number_elements_matches_for_large_set() {
-        assertEquals(Partitions.bellNumber(8),
-                     Partitions.allPartitions(IntStream.range(0, 8).boxed().collect(Collectors.toSet())).size());
+        assertEquals(AllPartitions.bellNumber(8),
+                     AllPartitions.from(IntStream.range(0, 8).boxed().collect(Collectors.toSet())).size());
     }
 }

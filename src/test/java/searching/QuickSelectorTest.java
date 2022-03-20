@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -84,7 +83,7 @@ class QuickSelectorTest {
 
     @Test
     void random_array() {
-        Integer[] numbers = IntStream.range(0, 100).map(i -> new Random().nextInt()).boxed().toArray(Integer[]::new);
+        Integer[] numbers = new Random().ints(100).boxed().toArray(Integer[]::new);
 
         int k = 50;
         int kthSmallest = findKthSmallestElement(numbers, k);

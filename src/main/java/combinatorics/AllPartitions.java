@@ -6,9 +6,9 @@ import java.util.stream.IntStream;
 
 import static com.google.common.math.IntMath.binomial;
 
-public class Partitions {
+public class AllPartitions {
 
-    public static <T> Set<Set<Set<T>>> allPartitions(Set<T> set) {
+    public static <T> Set<Set<Set<T>>> from(Set<T> set) {
         return computeRecursively(set);
     }
 
