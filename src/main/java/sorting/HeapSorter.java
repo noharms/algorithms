@@ -13,7 +13,7 @@ public class HeapSorter<T extends Comparable<T>> implements Sorter<T> {
 
     public void sort(T[] array) {
         heap.addAll(Arrays.stream(array).toList());
-        for (int i = 0; i < heap.size(); ++i) {
+        for (int i = 0; i < array.length; ++i) {
             array[i] = heap.remove();
         }
     }
