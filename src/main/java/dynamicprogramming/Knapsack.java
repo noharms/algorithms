@@ -19,10 +19,10 @@ public class Knapsack {
     }
 
     private static void validate(List<Item> items, int capacity) {
-        if (!items.stream().allMatch(item -> item.cost > 0 && item.value > 0)) {
-            throw new IllegalArgumentException("Costs and values must be > 0 for all items.");
+        if (!items.stream().allMatch(item -> item.load > 0 && item.value > 0)) {
+            throw new IllegalArgumentException("Loads and values must be > 0 for all items.");
         }
-        if (!items.stream().allMatch(item -> item.cost <= capacity)) {
+        if (!items.stream().allMatch(item -> item.load <= capacity)) {
             throw new IllegalArgumentException("All single items should fit in the knapsack.");
         }
         if (new HashSet<>(items).size() != items.size()) {
@@ -30,7 +30,7 @@ public class Knapsack {
         }
     }
 
-    public static record Item(String name, int cost, int value) {
+    public static record Item(String name, int load, int value) {
     }
 
     public Set<Item> pickOptimum() {
@@ -44,8 +44,8 @@ public class Knapsack {
     }
 
     private List<List<Set<Item>>> computeSubSolutions() {
-        int minCost = items.stream().min(Comparator.comparing(Item::cost)).orElseThrow().cost;
-        int capacityStepSize = IntMath.gcd(capacity, minCost);
+        int minLoadDelta = findMinDelta(items);
+        int capacityStepSize = IntMath.gcd(capacity, minLoadDelta);
         int nSubCapacities = capacity / capacityStepSize;
 
         List<List<Set<Item>>> subSolutions = initializeSubSolutions(items.size(), nSubCapacities);
@@ -58,10 +58,10 @@ public class Knapsack {
             for (int j = 0; j < nSubCapacities; j++) {
                 int currentCapacity = capacities.get(j);
 
-                boolean isCurrentItemFitting = currentItem.cost <= currentCapacity;
+                boolean isCurrentItemFitting = currentItem.load <= currentCapacity;
                 int currentItemValue = isCurrentItemFitting ? currentItem.value : 0;
-                int currentItemCost = isCurrentItemFitting ? currentItem.cost : 0;
-                int remainingCapacity = currentCapacity - currentItemCost;
+                int currentItemLoad = isCurrentItemFitting ? currentItem.load : 0;
+                int remainingCapacity = currentCapacity - currentItemLoad;
                 int jRemainingCapacity = remainingCapacity / capacityStepSize - 1;
                 Set<Item> itemsRemainingCapacity = jRemainingCapacity >= 0 ?
                         subSolutions.get(i).get(jRemainingCapacity) :
@@ -79,6 +79,18 @@ public class Knapsack {
             }
         }
         return subSolutions;
+    }
+
+    private static int findMinDelta(List<Item> items) {
+        if (items.size() < 2) {
+            return items.get(0).load;
+        }
+        int minDelta = Math.abs(items.get(1).load - items.get(0).load);
+        for (int i = 2; i < items.size(); i++) {
+            int delta = Math.abs(items.get(i).load - items.get(i - 1).load);
+            minDelta = Math.min(minDelta, delta);
+        }
+        return minDelta;
     }
 
     private static int summedValue(Set<Item> items) {
