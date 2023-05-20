@@ -12,14 +12,18 @@ public class BubbleSorter<T extends Comparable<T>> implements Sorter<T> {
      */
     @Override
     public void sort(T[] array) {
-        int nUnsorted = array.length - 1;
-        while (nUnsorted > 0) {
-            for (int j = 0; j < nUnsorted; j++) {
-                if (array[j].compareTo(array[j + 1]) > 0) {
-                    ArrayUtils.swap(j, j + 1, array);
-                }
+        int iStartSortedSubarray = array.length; // initially, nothing is sorted, so subarray starts beyond the end
+        while (iStartSortedSubarray > 0) {
+            swapRepeatedlyFromTo(0, iStartSortedSubarray, array);
+            --iStartSortedSubarray;
+        }
+    }
+
+    private void swapRepeatedlyFromTo(int startIncl, int endExcl, T[] array) {
+        for (int i = startIncl; i < endExcl - 1; i++) {
+            if (array[i].compareTo(array[i + 1]) > 0) {
+                ArrayUtils.swap(i, i + 1, array);
             }
-            --nUnsorted;
         }
     }
 

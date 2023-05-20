@@ -10,17 +10,24 @@ public class InsertionSorter<T extends Comparable<T>> implements Sorter<T> {
      * <br>
      * This is achieved by taking the element after the sorted sub-array and inserting
      * it into the correct position inside the sorted sub-array (by consecutive swaps).
+     * <br>
+     * Memory aide: insertion sort is usually how we sort the obtained hand cards
+     * in a card game!
      */
     @Override
     public void sort(T[] array) {
-        int iterator = 1;
-        while (iterator <= array.length - 1) {
-            int backwardsIterator = iterator;
-            while (backwardsIterator > 0 && array[backwardsIterator].compareTo(array[backwardsIterator - 1]) < 0) {
-                swap(backwardsIterator, backwardsIterator - 1, array);
-                --backwardsIterator;
-            }
-            ++iterator;
+        int iEndSortedSubarray = 0;
+        while (iEndSortedSubarray < array.length - 1) {
+            insertNextUnsortedElementToSubarray(array, iEndSortedSubarray);
+            ++iEndSortedSubarray;
+        }
+    }
+
+    private void insertNextUnsortedElementToSubarray(T[] array, int iEndSortedSubarray) {
+        int backwardsIterator = iEndSortedSubarray + 1; // start at the next unsorted element
+        while (backwardsIterator > 0 && array[backwardsIterator].compareTo(array[backwardsIterator - 1]) < 0) {
+            swap(backwardsIterator, backwardsIterator - 1, array);
+            --backwardsIterator;
         }
     }
 
