@@ -18,13 +18,13 @@ public class InsertionSorter<T extends Comparable<T>> implements Sorter<T> {
     public void sort(T[] array) {
         int iEndSortedSubarray = 0;
         while (iEndSortedSubarray < array.length - 1) {
-            insertNextUnsortedElementToSubarray(iEndSortedSubarray, array);
+            insertNextUnsortedElementToSubarray(iEndSortedSubarray + 1, array);
             ++iEndSortedSubarray;
         }
     }
 
-    private void insertNextUnsortedElementToSubarray(int iEndSortedSubarray, T[] array) {
-        int backwardsIterator = iEndSortedSubarray + 1; // start at the next unsorted element
+    private void insertNextUnsortedElementToSubarray(int iNextUnsortedElement, T[] array) {
+        int backwardsIterator = iNextUnsortedElement; // start at the next unsorted element
         while (backwardsIterator > 0 && array[backwardsIterator].compareTo(array[backwardsIterator - 1]) < 0) {
             swap(backwardsIterator, backwardsIterator - 1, array);
             --backwardsIterator;
