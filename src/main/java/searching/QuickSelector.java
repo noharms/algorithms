@@ -32,7 +32,7 @@ public class QuickSelector {
         int startIncl = 0;
         int endExcl = array.length;
 
-        int indexPivot = triPartitionAroundPivot(array, startIncl, endExcl);
+        int indexPivot = triPartitionAroundPivot(startIncl, endExcl, array);
         int offsetPivot = indexPivot - startIncl;
         while (offsetPivot != k) {
             if (offsetPivot > k) {
@@ -41,7 +41,7 @@ public class QuickSelector {
                 k = k - offsetPivot - 1;
                 startIncl = indexPivot + 1;
             }
-            indexPivot = triPartitionAroundPivot(array, startIncl, endExcl);
+            indexPivot = triPartitionAroundPivot(startIncl, endExcl, array);
             offsetPivot = indexPivot - startIncl;
         }
         return array[indexPivot];

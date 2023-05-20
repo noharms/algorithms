@@ -16,7 +16,7 @@ public class BubbleSorter<T extends Comparable<T>> implements Sorter<T> {
         while (nUnsorted > 0) {
             for (int j = 0; j < nUnsorted; j++) {
                 if (array[j].compareTo(array[j + 1]) > 0) {
-                    ArrayUtils.swap(array, j, j + 1);
+                    ArrayUtils.swap(j, j + 1, array);
                 }
             }
             --nUnsorted;

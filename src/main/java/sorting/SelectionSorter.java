@@ -19,7 +19,7 @@ public class SelectionSorter<T extends Comparable<T>> implements Sorter<T> {
             for (int j = 1; j <= nUnsorted; j++) {
                 iMaxElement = array[j].compareTo(array[iMaxElement]) > 0 ? j : iMaxElement;
             }
-            ArrayUtils.swap(array, iMaxElement, nUnsorted);
+            ArrayUtils.swap(iMaxElement, nUnsorted, array);
             nUnsorted--;
         }
     }

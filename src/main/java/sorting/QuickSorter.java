@@ -13,7 +13,7 @@ public class QuickSorter<T extends Comparable<T>> implements Sorter<T> {
         if (endExcl - startIncl < 2) {
             return;
         }
-        int pivotIndex = biPartitionAroundPivot(array, startIncl, endExcl);
+        int pivotIndex = biPartitionAroundPivot(startIncl, endExcl, array);
         quickSort(array, startIncl, pivotIndex);
         quickSort(array, pivotIndex + 1, endExcl);
     }

@@ -17,7 +17,7 @@ public class InsertionSorter<T extends Comparable<T>> implements Sorter<T> {
         while (iterator <= array.length - 1) {
             int backwardsIterator = iterator;
             while (backwardsIterator > 0 && array[backwardsIterator].compareTo(array[backwardsIterator - 1]) < 0) {
-                swap(array, backwardsIterator, backwardsIterator - 1);
+                swap(backwardsIterator, backwardsIterator - 1, array);
                 --backwardsIterator;
             }
             ++iterator;
