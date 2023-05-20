@@ -16,13 +16,13 @@ public class InsertionSorter<T extends Comparable<T>> implements Sorter<T> {
      */
     @Override
     public void sort(T[] array) {
-        int iEndSortedSubarray = 0;
-        while (iEndSortedSubarray < array.length - 1) {
+        for (int iEndSortedSubarray = 0; iEndSortedSubarray < array.length - 1; iEndSortedSubarray++) {
             insertNextUnsortedElementToSubarray(iEndSortedSubarray + 1, array);
-            ++iEndSortedSubarray;
         }
     }
 
+    // note: we insert the unsorted element to the sorted subarray by repeatedly swapping it to its correct position,
+    // which is basically like doing one round of the 'bubble sort' algorithm
     private void insertNextUnsortedElementToSubarray(int iNextUnsortedElement, T[] array) {
         int backwardsIterator = iNextUnsortedElement; // start at the next unsorted element
         while (backwardsIterator > 0 && array[backwardsIterator].compareTo(array[backwardsIterator - 1]) < 0) {

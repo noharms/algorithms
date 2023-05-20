@@ -13,11 +13,10 @@ public class SelectionSorter<T extends Comparable<T>> implements Sorter<T> {
      */
     @Override
     public void sort(T[] array) {
-        int iStartSortedSubarray = array.length;  // initially, nothing is sorted, so subarray starts beyond the end
-        while (iStartSortedSubarray > 0) {
+        // initially, nothing is sorted, so subarray starts beyond the end
+        for (int iStartSortedSubarray = array.length; iStartSortedSubarray > 0; iStartSortedSubarray--) {
             int iMaxElement = findIndexOfMax(0, iStartSortedSubarray, array);
             ArrayUtils.swap(iMaxElement, iStartSortedSubarray - 1, array);
-            iStartSortedSubarray--;
         }
     }
 
