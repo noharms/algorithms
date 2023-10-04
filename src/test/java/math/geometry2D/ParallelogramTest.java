@@ -1,4 +1,4 @@
-package math.geometry;
+package math.geometry2D;
 
 import org.junit.jupiter.api.Test;
 

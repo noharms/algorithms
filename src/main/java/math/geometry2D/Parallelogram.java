@@ -1,4 +1,4 @@
-package math.geometry;
+package math.geometry2D;
 
 /**
  * A parallelogram has two pairs of parallel sides like a rectangle but

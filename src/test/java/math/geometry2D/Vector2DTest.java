@@ -1,9 +1,9 @@
-package math.geometry;
+package math.geometry2D;
 
 import org.junit.jupiter.api.Test;
 
 import static java.lang.Double.NaN;
-import static math.geometry.Vector2D.*;
+import static math.geometry2D.Vector2D.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Vector2DTest {
