@@ -12,6 +12,7 @@ public record Vector2D(double x, double y) {
     public static final double NEGATIVE_ZERO = -0.0;
 
     public static final Vector2D ZERO_VECTOR = new Vector2D(POSITIVE_ZERO, POSITIVE_ZERO);
+    static final double DOUBLE_PRECISION = 10e-12;
 
     public Vector2D {
         if (Double.isNaN(x)) {
@@ -28,6 +29,19 @@ public record Vector2D(double x, double y) {
 
     public Vector2D negative() {
         return new Vector2D(-x, -y);
+    }
+
+    public Vector2D subtract(Vector2D other) {
+        return add(other.negative());
+    }
+
+    public double length() {
+        return Math.sqrt(x*x + y*y);
+    }
+
+    public Vector2D normalize() {
+        double length = length();
+        return new Vector2D(x / length, y / length);
     }
 
     /**

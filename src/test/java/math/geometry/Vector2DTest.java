@@ -67,4 +67,39 @@ class Vector2DTest {
     void negative_on_zero_vector_gives_back_zero_vector() {
         assertEquals(ZERO_VECTOR, ZERO_VECTOR.negative());
     }
+
+    @Test
+    void subtract_same_vector_gives_zero_vector() {
+        Vector2D positiveValues = new Vector2D(42.1, 2.3);
+        Vector2D negativeValues = new Vector2D(-42.1, -2.3);
+        Vector2D mixedValues = new Vector2D(42.1, -2.3);
+        assertEquals(ZERO_VECTOR, positiveValues.subtract(positiveValues));
+        assertEquals(ZERO_VECTOR, negativeValues.subtract(negativeValues));
+        assertEquals(ZERO_VECTOR, mixedValues.subtract(mixedValues));
+    }
+
+    @Test
+    void length_simple_unit_lengths() {
+        assertEquals(1., new Vector2D(1, 0).length(), DOUBLE_PRECISION);
+        assertEquals(1., new Vector2D(0, 1).length(), DOUBLE_PRECISION);
+        assertEquals(1., new Vector2D(-1, 0).length(), DOUBLE_PRECISION);
+        assertEquals(1., new Vector2D(0, -1).length(), DOUBLE_PRECISION);
+    }
+
+    @Test
+    void length_more_difficult_examples() {
+        assertEquals(42.3, new Vector2D(42.3, 0).length(), DOUBLE_PRECISION);
+        assertEquals(42.3, new Vector2D(0, 42.3).length(), DOUBLE_PRECISION);
+        assertEquals(Math.sqrt(2), new Vector2D(1, 1).length(), DOUBLE_PRECISION);
+        assertEquals(Math.sqrt(2), new Vector2D(1, -1).length(), DOUBLE_PRECISION);
+        assertEquals(5, new Vector2D(3, 4).length(), DOUBLE_PRECISION);
+    }
+
+    @Test
+    void normalize_gives_unit_vector() {
+        assertEquals(1., new Vector2D(1, 2).normalize().length(), DOUBLE_PRECISION);
+        assertEquals(1., new Vector2D(-1, 2).normalize().length(), DOUBLE_PRECISION);
+        assertEquals(1., new Vector2D(42.3, 2).normalize().length(), DOUBLE_PRECISION);
+        assertEquals(1., new Vector2D(42.3, 42.4).normalize().length(), DOUBLE_PRECISION);
+    }
 }
