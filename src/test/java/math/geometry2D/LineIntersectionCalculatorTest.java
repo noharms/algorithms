@@ -3,56 +3,55 @@ package math.geometry2D;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LineIntersectionCalculatorTest {
 
     @Test
-    void interSectionPoint_two_parallel_vertical_lines_throws() {
+    void interSectionPoint_two_parallel_vertical_lines_gives_special_return_value() {
         Line line1 = new Line(new Vector2D(0, 0), new Vector2D(0, 1));
         Line line2 = new Line(new Vector2D(1, 0), new Vector2D(0, 1));
 
-        assertThrows(IllegalArgumentException.class, () -> LineIntersectionCalculator.intersectionPoint(line1, line2));
+        assertEquals(Vector2D.NEGATIVE_INFINITY_VECTOR, LineIntersectionCalculator.intersectionPoint(line1, line2));
     }
 
     @Test
-    void interSectionPoint_two_parallel_horizontal_lines_throws() {
+    void interSectionPoint_two_parallel_horizontal_lines_gives_special_return_value() {
         Line line1 = new Line(new Vector2D(0, 0), new Vector2D(1, 0));
         Line line2 = new Line(new Vector2D(0, 1), new Vector2D(1, 0));
 
-        assertThrows(IllegalArgumentException.class, () -> LineIntersectionCalculator.intersectionPoint(line1, line2));
+        assertEquals(Vector2D.NEGATIVE_INFINITY_VECTOR, LineIntersectionCalculator.intersectionPoint(line1, line2));
     }
 
     @Test
-    void interSectionPoint_two_parallel_tilted_lines_throws() {
+    void interSectionPoint_two_parallel_tilted_lines_gives_special_return_value() {
         Line line1 = new Line(new Vector2D(0, 0), new Vector2D(1, 1));
         Line line2 = new Line(new Vector2D(0, -1), new Vector2D(1, 1));
 
-        assertThrows(IllegalArgumentException.class, () -> LineIntersectionCalculator.intersectionPoint(line1, line2));
+        assertEquals(Vector2D.NEGATIVE_INFINITY_VECTOR, LineIntersectionCalculator.intersectionPoint(line1, line2));
     }
 
     @Test
-    void interSectionPoint_two_equivalent_vertical_lines_throws() {
+    void interSectionPoint_two_equivalent_vertical_lines_gives_special_return_value() {
         Line line1 = new Line(new Vector2D(0, 0), new Vector2D(0, 1));
         Line line2 = new Line(new Vector2D(0, 0), new Vector2D(0, 2));
 
-        assertThrows(IllegalArgumentException.class, () -> LineIntersectionCalculator.intersectionPoint(line1, line2));
+        assertEquals(Vector2D.POSITIVE_INFINITY_VECTOR, LineIntersectionCalculator.intersectionPoint(line1, line2));
     }
 
     @Test
-    void interSectionPoint_two_equivalent_horizontal_lines_throws() {
+    void interSectionPoint_two_equivalent_horizontal_lines_gives_special_return_value() {
         Line line1 = new Line(new Vector2D(0, 0), new Vector2D(1, 0));
         Line line2 = new Line(new Vector2D(0, 0), new Vector2D(2, 0));
 
-        assertThrows(IllegalArgumentException.class, () -> LineIntersectionCalculator.intersectionPoint(line1, line2));
+        assertEquals(Vector2D.POSITIVE_INFINITY_VECTOR, LineIntersectionCalculator.intersectionPoint(line1, line2));
     }
 
     @Test
-    void interSectionPoint_two_equivalent_tilted_lines_throws() {
+    void interSectionPoint_two_equivalent_tilted_lines_gives_special_return_value() {
         Line line1 = new Line(new Vector2D(0, 0), new Vector2D(1, 1));
         Line line2 = new Line(new Vector2D(0, 0), new Vector2D(-2, -2));
 
-        assertThrows(IllegalArgumentException.class, () -> LineIntersectionCalculator.intersectionPoint(line1, line2));
+        assertEquals(Vector2D.POSITIVE_INFINITY_VECTOR, LineIntersectionCalculator.intersectionPoint(line1, line2));
     }
 
     @Test

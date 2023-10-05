@@ -48,6 +48,13 @@ class LineSegmentIntersectionCalculatorTest {
     }
 
     @Test
+    void intersectionPoint_of_the_same_line_with_itself() {
+        LineSegment lineSegment1 = new LineSegment(new Vector2D(0, 0), new Vector2D(1, 1));
+
+        assertEquals(Vector2D.POSITIVE_INFINITY_VECTOR, intersectionPoint(lineSegment1, lineSegment1));
+    }
+
+    @Test
     void intersectionPoint_two_overlapping_segments_of_the_same_line() {
         LineSegment lineSegment1 = new LineSegment(new Vector2D(0, 0), new Vector2D(1, 1));
         LineSegment lineSegment2 = new LineSegment(new Vector2D(0.5, 0.5), new Vector2D(2, 2));
@@ -61,5 +68,69 @@ class LineSegmentIntersectionCalculatorTest {
         LineSegment lineSegment2 = new LineSegment(new Vector2D(1, 1), new Vector2D(2, 2));
 
         assertEquals(new Vector2D(1, 1), intersectionPoint(lineSegment1, lineSegment2));
+    }
+
+    @Test
+    void intersectionPoint_two_disjunct_segments_of_the_same_line() {
+        LineSegment lineSegment1 = new LineSegment(new Vector2D(0, 0), new Vector2D(1, 1));
+        LineSegment lineSegment2 = new LineSegment(new Vector2D(1.5, 1.5), new Vector2D(2, 2));
+
+        assertEquals(Vector2D.NEGATIVE_INFINITY_VECTOR, intersectionPoint(lineSegment1, lineSegment2));
+    }
+
+    @Test
+    void intersectionPoint_two_completely_disjunct_segments() {
+        LineSegment lineSegment1 = new LineSegment(new Vector2D(0, 0), new Vector2D(1, 1));
+        LineSegment lineSegment2 = new LineSegment(new Vector2D(-4, -4), new Vector2D(-2, -5));
+
+        assertEquals(Vector2D.NEGATIVE_INFINITY_VECTOR, intersectionPoint(lineSegment1, lineSegment2));
+    }
+
+    @Test
+    void intersectionPoint_two_completely_disjunct_but_parallel_tilted_segments() {
+        LineSegment lineSegment1 = new LineSegment(new Vector2D(0, 0), new Vector2D(1, 1));
+        LineSegment lineSegment2 = new LineSegment(new Vector2D(-4, -4), new Vector2D(-5, -5));
+
+        assertEquals(Vector2D.NEGATIVE_INFINITY_VECTOR, intersectionPoint(lineSegment1, lineSegment2));
+    }
+
+    @Test
+    void intersectionPoint_two_completely_disjunct_but_parallel_horizontal_segments() {
+        LineSegment lineSegment1 = new LineSegment(new Vector2D(0, 0), new Vector2D(1, 0));
+        LineSegment lineSegment2 = new LineSegment(new Vector2D(-4, 2), new Vector2D(5, 2));
+
+        assertEquals(Vector2D.NEGATIVE_INFINITY_VECTOR, intersectionPoint(lineSegment1, lineSegment2));
+    }
+
+    @Test
+    void intersectionPoint_two_parallel_vertical_segments() {
+        LineSegment lineSegment1 = new LineSegment(new Vector2D(0, 0), new Vector2D(0, 1));
+        LineSegment lineSegment2 = new LineSegment(new Vector2D(-4, -2), new Vector2D(-4, 2));
+
+        assertEquals(Vector2D.NEGATIVE_INFINITY_VECTOR, intersectionPoint(lineSegment1, lineSegment2));
+    }
+
+    @Test
+    void intersectionPoint_one_vertical_one_horizontal_segment_which_intersect() {
+        LineSegment lineSegment1 = new LineSegment(new Vector2D(0, 0), new Vector2D(0, 2));
+        LineSegment lineSegment2 = new LineSegment(new Vector2D(-4, 1), new Vector2D(4, 1));
+
+        assertEquals(new Vector2D(0, 1), intersectionPoint(lineSegment1, lineSegment2));
+    }
+
+    @Test
+    void intersectionPoint_one_horizontal_one_vertical_segment_which_intersect() {
+        LineSegment lineSegment1 = new LineSegment(new Vector2D(-4, 1), new Vector2D(4, 1));
+        LineSegment lineSegment2 = new LineSegment(new Vector2D(0, 0), new Vector2D(0, 2));
+
+        assertEquals(new Vector2D(0, 1), intersectionPoint(lineSegment1, lineSegment2));
+    }
+
+    @Test
+    void intersectionPoint_one_horizontal_one_tilted_segment_which_intersect() {
+        LineSegment lineSegment1 = new LineSegment(new Vector2D(-4, 1), new Vector2D(4, 1));
+        LineSegment lineSegment2 = new LineSegment(new Vector2D(0, 0), new Vector2D(4, 2));
+
+        assertEquals(new Vector2D(2, 1), intersectionPoint(lineSegment1, lineSegment2));
     }
 }

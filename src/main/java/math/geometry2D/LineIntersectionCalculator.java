@@ -42,6 +42,10 @@ import static math.geometry2D.Vector2D.POSITIVE_INFINITY_VECTOR;
  */
 public class LineIntersectionCalculator {
 
+    private LineIntersectionCalculator() {
+        // static class, so far
+    }
+
     /**
      * If there is 0 intersection points, {@link Vector2D#NEGATIVE_INFINITY_VECTOR} is returned.
      * If there is infinite intersection points, {@link Vector2D#POSITIVE_INFINITY_VECTOR} is returned.

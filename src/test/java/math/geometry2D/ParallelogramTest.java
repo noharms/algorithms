@@ -2,6 +2,8 @@ package math.geometry2D;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ParallelogramTest {
@@ -13,6 +15,12 @@ class ParallelogramTest {
     private static final Parallelogram SQUARE_FULLY_QUADRANT_1 = new Parallelogram(POINT_1_1, VECTOR_4_0, VECTOR_0_4);
     private static final Parallelogram SQUARE_OVERLAP_ALL_QUADRANTS = new Parallelogram(
             POINT_1_1.negative(), VECTOR_4_0, VECTOR_0_4
+    );
+
+    public static final Parallelogram UNIT_SQUARE_AT_1_0 = new Parallelogram(
+            new Vector2D(1, 0),
+            new Vector2D(0, 1),
+            new Vector2D(1, 0)
     );
 
     @Test
@@ -31,4 +39,13 @@ class ParallelogramTest {
         assertEquals(new Vector2D(3., 3.), SQUARE_OVERLAP_ALL_QUADRANTS.d());
     }
 
+    @Test
+    void edges_unit_square() {
+        LineSegment ab = new LineSegment(new Vector2D(1, 0), new Vector2D(1, 1));
+        LineSegment bd = new LineSegment(new Vector2D(1, 1), new Vector2D(2, 1));
+        LineSegment ac = new LineSegment(new Vector2D(1, 0), new Vector2D(2, 0));
+        LineSegment cd = new LineSegment(new Vector2D(2, 0), new Vector2D(2, 1));
+
+        assertEquals(List.of(ab, bd, ac, cd), UNIT_SQUARE_AT_1_0.edges());
+    }
 }

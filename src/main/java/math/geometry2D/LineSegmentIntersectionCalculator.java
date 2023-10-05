@@ -5,6 +5,10 @@ import static math.geometry2D.Vector2D.POSITIVE_INFINITY_VECTOR;
 
 public class LineSegmentIntersectionCalculator {
 
+    private LineSegmentIntersectionCalculator() {
+        // static class, so far
+    }
+
     /**
      * The idea is: extrapolate the segments to lines, find the intersection point of the lines, and see if that point
      * is also contained in both the segments.
@@ -21,7 +25,7 @@ public class LineSegmentIntersectionCalculator {
         } else if (intersectionPoint.equals(POSITIVE_INFINITY_VECTOR)) {
             // extrapolated lines identical
             return haveSegmentsOfSameLineOverlap(lineSegment1, lineSegment2) ?
-                    getOverlapPoint(lineSegment1, lineSegment2) :
+                    getTouchPointIfPossible(lineSegment1, lineSegment2) :
                     NEGATIVE_INFINITY_VECTOR;
         } else {
             // extrapolated lines crossing
@@ -33,8 +37,8 @@ public class LineSegmentIntersectionCalculator {
         }
     }
 
-    private static Vector2D getOverlapPoint(LineSegment lineSegment1, LineSegment lineSegment2) {
-        return touchOnlyAtEndpoint(lineSegment1, lineSegment2) ?
+    private static Vector2D getTouchPointIfPossible(LineSegment lineSegment1, LineSegment lineSegment2) {
+        return isTouchingOnlyAtEndpoint(lineSegment1, lineSegment2) ?
                 getTouchPoint(lineSegment1, lineSegment2) :
                 POSITIVE_INFINITY_VECTOR;
     }
@@ -45,7 +49,7 @@ public class LineSegmentIntersectionCalculator {
                 lineSegment1.startPoint();
     }
 
-    private static boolean touchOnlyAtEndpoint(LineSegment lineSegment1, LineSegment lineSegment2) {
+    private static boolean isTouchingOnlyAtEndpoint(LineSegment lineSegment1, LineSegment lineSegment2) {
         return lineSegment1.endPoint().equals(lineSegment2.startPoint()) ||
                 lineSegment2.endPoint().equals(lineSegment1.startPoint());
     }
