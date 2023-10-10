@@ -2,11 +2,20 @@ package combinatorics;
 
 import java.util.*;
 
+/**
+ * More precisely, contiguous sublist. E.g. given (a, b, c), (a, c) is NOT considered a sublist because the elements a
+ * and c do not come contiguously in the original list.
+ */
 public class Sublist {
 
     /**
-     * There are (n + n-1 + n-2 + ... 1) = n(n+1) = O(n^2) consecutive sublists of a list of n elements.
-     * Finding all (startIncl, endIncl) indices is O(n^2). However, printing all sublists or collecting all of them
+     * There are (n + n-1 + n-2 + ... 1) = n(n+1) = O(n^2) consecutive/contiguous sublists of a list of n elements:
+     * if we start by checking all sublists starting at the first element, we get n different choices for the end of the
+     * sublist: a, ab, abc, abcd, ... -> n
+     * then if we start by checking all sublists starting at the second element, we get (n-1) different choices for the
+     * end element: b, bc, bd, ... -> (n-1)
+     * Adding up all possible start positions, we obtain: n + (n-1) + (n-2) + ... + 1 = n (n+1)/2 ~O(n^2).
+     * So, finding all (startIncl, endIncl) indices is O(n^2). However, printing all sublists or collecting all of them
      * is O(n^3) because printing/collecting requires O(n) to go from startIncl to endIncl for eachs current sublist.
      */
     public static <T> Set<List<T>> allConsecutiveSublists(List<T> list) {
