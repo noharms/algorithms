@@ -17,7 +17,10 @@ public class UrnModelWithRepetitionWithOrderTest {
 
     @Test
     void n_draws_greater_than_set_gives_empty_draw() {
-        assertEquals(emptySet(), UrnModel.drawWithRepetitionWithOrder(Set.of(1), 42));
+        assertEquals(
+                Set.of(List.of(1, 1, 1)),
+                UrnModel.drawWithRepetitionWithOrder(Set.of(1), 3)
+        );
     }
 
     @Test
@@ -40,6 +43,23 @@ public class UrnModelWithRepetitionWithOrderTest {
         assertEquals(
             Set.of(List.of(1, 1), List.of(1, 2), List.of(2, 2), List.of(2, 1)),
             UrnModel.drawWithRepetitionWithOrder(Set.of(1, 2), 2)
+        );
+    }
+
+    @Test
+    void two_element_set_three_draws() {
+        assertEquals(
+                Set.of(
+                        List.of(1, 1, 1),
+                        List.of(1, 1, 2),
+                        List.of(1, 2, 1),
+                        List.of(1, 2, 2),
+                        List.of(2, 1, 1),
+                        List.of(2, 1, 2),
+                        List.of(2, 2, 1),
+                        List.of(2, 2, 2)
+                ),
+                UrnModel.drawWithRepetitionWithOrder(Set.of(1, 2), 3)
         );
     }
 

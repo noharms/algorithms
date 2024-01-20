@@ -6,8 +6,43 @@ import java.util.stream.IntStream;
 
 import static com.google.common.math.IntMath.binomial;
 
-public class AllPartitions {
+public class UnorderedPartitions {
 
+    /**
+     * Returns a {@code Set<Set<Set<T>>>} where the outermost set contains the found partitions; each partition
+     * is represented as a {@code Set<Set<T>>} where the size of the set is the number of different containers
+     * (e.g. there will be one-partitions, so the partition has only a single container, so the set has size 1,
+     * then there will be bi-partitions, so the partition has two containers, so the set has size 2, and so on);
+     * <br><br>
+     * For example, given a set like {1, 2, 3} the result will be
+     * <pre>
+     *     {
+     *         // one-partitions
+     *         {
+     *             {1, 2, 3}
+     *         },
+     *         // two-partitions
+     *         {
+     *             {1, 2},
+     *             {3}
+     *         },
+     *         {
+     *             {1, 3},
+     *             {2}
+     *         },
+     *         {
+     *             {2, 3},
+     *             {1}
+     *         },
+     *         // three-partitions
+     *         {
+     *             {1},
+     *             {2},
+     *             {3}
+     *         }
+     *     }
+     * </pre>
+     */
     public static <T> Set<Set<Set<T>>> from(Set<T> set) {
         return computeRecursively(set);
     }

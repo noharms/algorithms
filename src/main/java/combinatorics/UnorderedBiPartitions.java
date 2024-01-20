@@ -8,8 +8,28 @@ import java.util.Set;
 
 import static java.util.Collections.emptySet;
 
-public class BiPartitions {
+public class UnorderedBiPartitions {
 
+    /**
+     * @return a {@code Set<Set<Set<T>>>} where the outermost set contains the found bi-partitions; each bi-partition
+     * is represented as a {@code Set<Set<T>>} of size 2, which means the first partition is a {@code Set<T>} containing
+     * the elements of partition 1 and the second partition is a {@Code Set<T>} containing the elements of partition 2.
+     * <br><br>
+     * For example, given a set like {1, 2, 3} the result will be
+     * <pre>
+     *     {
+     *         {
+     *             {1, 2}, {3}
+     *         },
+     *         {
+     *             {1, 3}, {2}
+     *         },
+     *         {
+     *             {2, 3}, {1}
+     *         }
+     *     }
+     * </pre>
+     */
     public static <T> Set<Set<Set<T>>> from(Set<T> set) {
         if (set.size() < 2) {
             return emptySet();

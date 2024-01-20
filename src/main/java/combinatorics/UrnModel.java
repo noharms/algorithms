@@ -65,7 +65,7 @@ public class UrnModel {
     }
 
     public static <T> Set<List<T>> drawWithRepetitionWithOrder(Set<T> set, int nDraws) {
-        if (nDraws > set.size() || nDraws == 0) {
+        if (nDraws == 0) {
             return emptySet();
         }
         Set<List<T>> result = new HashSet<>();
