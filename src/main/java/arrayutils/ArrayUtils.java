@@ -119,4 +119,29 @@ public class ArrayUtils {
             remaining2.addFirst(first);
         }
     }
+
+    /**
+     * Computes the local maxima found in the given array, where a local maximum is a value in the array for which the
+     * previous value and the next value are strictly smaller. However, since a local maximum can stretch across
+     * a plateau of multiple equal values such that the last value before the plateau and the next value after the
+     * plateau are smaller, the returned values will be in the form of a range given by
+     * {@code [plateau_startInclusive, plateau_endInclusive]}. Note that by this definition a boundary point can never
+     * be a local maximum.
+     */
+    public static List<Map.Entry<Integer, Integer>> findIndicesMaxima(int[] array) {
+        List<Map.Entry<Integer, Integer>> result = new ArrayList<>();
+        for (int i = 1; i < array.length - 1; i++) {
+            if (array[i - 1] < array[i]) {
+                int plateauStartIncl = i;
+                while (i < array.length - 1 && array[i + 1] == array[plateauStartIncl]) {
+                    ++i;
+                }
+                // now i is at the last value of the plateau (or still i, if the "plateau" is just a single point)
+                if (i < array.length - 1 && array[i] > array[i + 1]) {
+                    result.add(Map.entry(plateauStartIncl, i));
+                }
+            }
+        }
+        return result;
+    }
 }
